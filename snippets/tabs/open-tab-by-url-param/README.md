@@ -1,26 +1,19 @@
-## Open Tab By Url Parameter in Webflow
+## Webflow - Open Tab by URL Parameter
 
-1.  Copy and paste this snippet into the body
+This JavaScript code is designed to change the active tab on a Webflow site based on a URL parameter. Here's a breakdown of what the code does:
 
-```javascript
-<script>
-	var Webflow = Webflow || [];
-	Webflow.push(function () {
-  		var tabName = param("CHANGE_ME");
-  		if (!tabName) return;
-  		$('[data-w-tab="' + tabName + '"]').triggerHandler("click");
+1\.  It first creates an array called \`Webflow\` if it doesn't already exist, and then pushes a function to it. This function will be executed when Webflow is ready.
 
-  		function param(name) {
-    			const query = window.location.search;
-    			return new URLSearchParams(query);
-  		}
-	});
-</script>
-```
+2\.  Inside the function, a constant \`target\` is defined, which represents the name of the URL parameter that will be used to determine which tab to activate. You should replace "CHANGE_ME" with the actual name of your URL parameter.
 
-2\. Replace the “CHANGE_ME” to the target URL parameter that will control the tab switching
+3\.  The function \`param()\` is defined to get the value of a specified URL parameter. It creates a new \`URLSearchParams\` object from the current URL's search query, and then uses the \`get()\` method to retrieve the value of the specified parameter.
 
-3\. Name your tabs in Webflow to match the URL parameter (For example: https://myurl.com/home?tab=office -> will open the tab named "office". \
+4\.  The tab name is obtained by calling the \`param()\` function with the \`target\` constant as an argument.
 
-<img width="243" alt="Screenshot 2024-04-02 at 8 04 20 PM" src="https://github.com/alpineux/wonderflow/assets/99145815/3314efba-f1d7-47f8-b673-c10ce7a56c27">
+5\.  If there's no tab name (meaning the URL parameter wasn't found), the function immediately returns to prevent any errors.
 
+6\.  If a tab name is found, the code triggers a click event on the tab element that has a matching \`data-w-tab\` attribute. This attribute should contain the name of the tab.
+
+7\.  An event listener is added to all elements with a \`data-w-tab\` attribute. When one of these elements is clicked, the URL parameter is updated to reflect the newly active tab.
+
+8\.  The function \`param()\` is used to get the value of the URL parameter and then the \`history.pushState()\` method is used to update the URL with the new parameter value. This allows the user to bookmark or share the URL with the specific tab open.
